@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@scatterjs/core": "^2.7.53",
+    "@scatterjs/eosjs2": "^1.5.35",
     "axios": "^0.19.2",
+    "eosjs": "^20.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^5.2.0",

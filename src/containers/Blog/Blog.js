@@ -9,7 +9,7 @@ import Posts from './Posts/Posts';
 import asyncComponent from '../../hoc/asyncComponent';
 
 const AsyncNewPost = asyncComponent(()=>{
-    return import('./NewPost/NewPost');
+    return import('./Devices/NewDevice');
 });
 
 class Blog extends Component {
