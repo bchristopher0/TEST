@@ -7,12 +7,13 @@ class NewPost extends Component {
     state = {
         username: '',
         deviceid: '',
-        devicetype: '',
+        devicetype: 'Camera',
         submitted:false,
     }
 
     componentDidMount() {
         console.log(this.props);
+        
     }
     addDeviceHandler = () => {
         const data = {
@@ -21,7 +22,14 @@ class NewPost extends Component {
             devicetype:this.state.devicetype,
         }
         eos.regdev(data);
+        this.setState({submitted:true});
     }
+    generateIdHandler = () => {
+        this.setState({deviceid:Math.floor(100000 + Math.random() * 900000)});
+    }
+
+
+
 
     render () {
         let redirect = null;
@@ -35,7 +43,7 @@ class NewPost extends Component {
                 <h1>Add a Device</h1>
                 <label>Device ID</label>
                 <input type="text" value={this.state.deviceid} onChange={(event) => this.setState({deviceid: event.target.value})} />
-                <button>Generate Unique ID</button>
+                <button onClick={this.generateIdHandler}>Generate Unique ID</button>
                 {/* <label>Device Type</label>
                 <textarea rows="1" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})} /> */}
                 <label>Device Type</label>

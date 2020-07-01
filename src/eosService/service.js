@@ -67,7 +67,7 @@ const transact = (actionname, data) => {
 
         api.transact({
             actions:[{
-                account: 'scatter',
+                account: 'scattertest',
                 name: actionname,
                 authorization: // user paying for resources must go first
                 [{
