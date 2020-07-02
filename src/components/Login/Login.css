@@ -1,0 +1,21 @@
+.Login {
+    width: 80%;
+    margin: 20px auto;
+    
+    text-align: center;
+}
+.Login button {
+    margin: 5px 5px;
+    padding: 10px 10px;
+    font: inherit;
+    border: 1px solid #fa923f;
+    background-color: transparent;
+    color: #fa923f;
+    cursor: pointer;
+}
+
+.Login button:hover,
+.Login button:active {
+    color: white;
+    background-color: #fa923f;
+}

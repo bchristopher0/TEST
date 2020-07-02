@@ -59,6 +59,10 @@ const unregdev = (data) => {
     transact('unregdev', data);
 }
 
+const getusr = () => {
+    const account = ScatterJS.account('eos');
+    return account.name;
+}
 const transact = (actionname, data) => {
     ScatterJS.login().then(id => {
         if(!id) return console.error('no identity');
@@ -91,4 +95,4 @@ const transact = (actionname, data) => {
     });
 }
 
-export {transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev};
+export {transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr};
