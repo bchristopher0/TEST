@@ -34,8 +34,7 @@ setInterval(() => {
 
 
         // set up our RPC + API
-const rpc = new JsonRpc(network.fullhost());    
-const api = ScatterJS.eos(network, Api, {rpc});
+
 
 const logout = () => {
     ScatterJS.logout();
@@ -63,30 +62,28 @@ const getusr = () => {
     const account = ScatterJS.identity.account[0].name;
     return account.name;
 }
-const getDeviceByName = async () => {
-    //const rpc = new JsonRpc(network.fullhost());    
-    async () => {
-    try{
-        console.log(await rpc.get_table_rows({
-            json: true,               // Get the response as json
-            code: 'scattertest',      // Contract that we target
-            scope: 'scattertest',         // Account that owns the data
-            table: 'userlist',        // Table name
-            limit: 1,
-            lower_bound:'account',
-            upper_bound:'account',                // Maximum number of rows that we want to get
-            //reverse: false,           // Optional: Get reversed data
-            //show_payer: false          // Optional: Show ram payerr         
-        }));
-        
-    } catch (err) {
+const getDeviceByName = async(username) => {
+    try {
+        const rpc = new JsonRpc(network.fullhost());     
+        const result = await rpc.get_table_rows({
+          json: true,
+          code: 'scattertest',    // contract who owns the table
+          scope: 'scattertest',   // scope of the table
+          table: 'devicelist', // name of the table as specified by the contract abi
+          table_key: 'username',
+          index_position: 2,
+          key_type: 'name',
+          lower_bound: 'scatterdev',
+          limit: 1,
+          reverse: false,
+          show_payer: false,
+        });
+        return result.rows;
+      } catch (err) {
         console.error(err);
+      }
     }
-   
-    }
-      
-     
-    }
+    
 
 
 
@@ -94,6 +91,8 @@ const transact = (actionname, data) => {
     ScatterJS.login().then(id => {
         if(!id) return console.error('no identity');
         const account = ScatterJS.account('eos');
+        const rpc = new JsonRpc(network.fullhost());    
+        const api = ScatterJS.eos(network, Api, {rpc});
 
 
         api.transact({
