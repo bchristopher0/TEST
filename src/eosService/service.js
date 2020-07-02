@@ -60,9 +60,36 @@ const unregdev = (data) => {
 }
 
 const getusr = () => {
-    const account = ScatterJS.account('eos');
+    const account = ScatterJS.identity.account[0].name;
     return account.name;
 }
+const getDeviceByName = async () => {
+    //const rpc = new JsonRpc(network.fullhost());    
+    async () => {
+    try{
+        console.log(await rpc.get_table_rows({
+            json: true,               // Get the response as json
+            code: 'scattertest',      // Contract that we target
+            scope: 'scattertest',         // Account that owns the data
+            table: 'userlist',        // Table name
+            limit: 1,
+            lower_bound:'account',
+            upper_bound:'account',                // Maximum number of rows that we want to get
+            //reverse: false,           // Optional: Get reversed data
+            //show_payer: false          // Optional: Show ram payerr         
+        }));
+        
+    } catch (err) {
+        console.error(err);
+    }
+   
+    }
+      
+     
+    }
+
+
+
 const transact = (actionname, data) => {
     ScatterJS.login().then(id => {
         if(!id) return console.error('no identity');
@@ -95,4 +122,4 @@ const transact = (actionname, data) => {
     });
 }
 
-export {transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr};
+export {transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceByName};

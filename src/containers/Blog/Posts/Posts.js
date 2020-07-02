@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from '../../../axios';
 import {Route} from 'react-router-dom';
-
+import * as eos from '../../../eosService/service';
 import Post from '../../../components/Post/Post';
 import './Posts.css';
 import FullPost from '../FullPost/FullPost';
@@ -37,6 +37,11 @@ class Posts extends Component {
 
     }
 
+    displayDeviceHandler = () => {
+        eos.getDeviceByName();
+
+
+    }
 
     render() {
         let posts = <p stype={{textAlign:'center'}} >Something went wrong!</p>
@@ -57,6 +62,7 @@ class Posts extends Component {
         return (
             <div>
                 <section className="Posts">
+                    <button onClick={this.displayDeviceHandler}>Display Devices</button>
                     {posts}
                 </section>
                 <Route path={this.props.match.url + '/:id'} exact component={FullPost}/>
