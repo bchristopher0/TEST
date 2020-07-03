@@ -7,11 +7,21 @@ import './Posts.css';
 import FullPost from '../FullPost/FullPost';
 
 class Posts extends Component {
-    state = {
-        post: [],
+    
+    constructor() {
+        super();
+        this.state = {
+            post: [],
+            username:''
+        }
     }
 
     componentDidMount() {
+        const status = eos.setStatus();
+        if (status != null){
+            this.setState({username:status})
+        }
+
         console.log(this.props);
         axios.get('/posts')
             .then(response=>{
@@ -38,12 +48,16 @@ class Posts extends Component {
     }
 
     displayDeviceHandler = () => {
-        eos.getDeviceByName();
+        eos.getDeviceByName('scatterdev').then(response => {
+            console.log(response);
+        });
 
 
     }
 
     render() {
+        
+
         let posts = <p stype={{textAlign:'center'}} >Something went wrong!</p>
         if (!this.state.error){
             posts = this.state.post.map(post=>{
@@ -61,6 +75,7 @@ class Posts extends Component {
         }
         return (
             <div>
+                <h2 style={{textAlign:'center'}}>{this.state.username}</h2>
                 <section className="Posts">
                     <button onClick={this.displayDeviceHandler}>Display Devices</button>
                     {posts}

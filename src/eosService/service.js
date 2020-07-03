@@ -20,12 +20,13 @@ ScatterJS.connect('UserList',{network}).then(connected => {
     });
 });
 
+
 // perpetually update that status id
 const setStatus = () => {
     //const status = document.getElementById('status');
     if(!ScatterJS) return console.error('No Scatter');
     if(!ScatterJS.identity) return console.error('No Identity');
-    //status.innerText = ScatterJS.identity.accounts[0].name;
+    return ScatterJS.identity.accounts[0].name;
 };
 setStatus();
 setInterval(() => {
@@ -59,9 +60,9 @@ const unregdev = (data) => {
 }
 
 const getusr = () => {
-    const account = ScatterJS.identity.account[0].name;
-    return account.name;
+    return ScatterJS.identity.accounts[0].name;
 }
+
 const getDeviceByName = async(username) => {
     try {
         const rpc = new JsonRpc(network.fullhost());     
@@ -69,12 +70,11 @@ const getDeviceByName = async(username) => {
           json: true,
           code: 'scattertest',    // contract who owns the table
           scope: 'scattertest',   // scope of the table
-          table: 'devicelist', // name of the table as specified by the contract abi
-          table_key: 'username',
-          index_position: 2,
-          key_type: 'name',
-          lower_bound: 'scatterdev',
-          limit: 1,
+          table: 'devicelist',          // Table name
+          table_key: 'username',           // Table secondary key name
+          lower_bound: 'account',
+          upper_bound: 'account',            // Table secondary key value
+          limit: 5,                   // Here we limit to 1 to get only row
           reverse: false,
           show_payer: false,
         });
@@ -121,4 +121,4 @@ const transact = (actionname, data) => {
     });
 }
 
-export {transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceByName};
+export { transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceByName};
