@@ -63,18 +63,18 @@ const getusr = () => {
     return ScatterJS.identity.accounts[0].name;
 }
 
-const getDeviceByName = async(username) => {
+const getDeviceByName = async() => {
     try {
         const rpc = new JsonRpc(network.fullhost());     
         const result = await rpc.get_table_rows({
           json: true,
-          code: 'scattertest',    // contract who owns the table
-          scope: 'scattertest',   // scope of the table
+          code: 'userlist',    // contract who owns the table
+          scope: 'userlist',   // scope of the table
           table: 'devicelist',          // Table name
-          table_key: 'username',           // Table secondary key name
-          lower_bound: 'account',
-          upper_bound: 'account',            // Table secondary key value
-          limit: 5,                   // Here we limit to 1 to get only row
+        //   table_key: 'username',           // Table secondary key name
+        //   lower_bound: 'account',
+        //   upper_bound: 'account',            // Table secondary key value
+          limit: 99,                   // Here we limit to 1 to get only row
           reverse: false,
           show_payer: false,
         });
@@ -97,7 +97,7 @@ const transact = (actionname, data) => {
 
         api.transact({
             actions:[{
-                account: 'scattertest',
+                account: 'userlist',
                 name: actionname,
                 authorization: // user paying for resources must go first
                 [{
