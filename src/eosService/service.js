@@ -63,16 +63,16 @@ const getusr = () => {
     return ScatterJS.identity.accounts[0].name;
 }
 
-const getDeviceByName = async() => {
+const getDeviceList= async() => {
     try {
         const rpc = new JsonRpc(network.fullhost());     
         const result = await rpc.get_table_rows({
           json: true,
-          code: 'userlist',    // contract who owns the table
-          scope: 'userlist',   // scope of the table
+          code: 'scatter',    // contract who owns the table
+          scope: 'scatter',   // scope of the table
           table: 'devicelist',          // Table name
-        //   table_key: 'username',           // Table secondary key name
-        //   lower_bound: 'account',
+          //  table_key: 'username',           // Table secondary key name
+      //  lower_bound: 'scatter',
         //   upper_bound: 'account',            // Table secondary key value
           limit: 99,                   // Here we limit to 1 to get only row
           reverse: false,
@@ -83,6 +83,26 @@ const getDeviceByName = async() => {
         console.error(err);
       }
     }
+
+    const getDeviceById= async(id) => {
+        try {
+            const rpc = new JsonRpc(network.fullhost());     
+            const result = await rpc.get_table_rows({
+              json: true,
+              code: 'scatter',    // contract who owns the table
+              scope: 'scatter',   // scope of the table
+              table: 'devicelist',          // Table name                
+              lower_bound: id,
+            //   upper_bound: 'account',            
+              limit: 1,                   
+              reverse: false,
+              show_payer: false,
+            });
+            return result.rows[0];
+          } catch (err) {
+            console.error(err);
+          }
+        }
     
 
 
@@ -97,7 +117,7 @@ const transact = (actionname, data) => {
 
         api.transact({
             actions:[{
-                account: 'userlist',
+                account: 'scatter',
                 name: actionname,
                 authorization: // user paying for resources must go first
                 [{
@@ -121,4 +141,4 @@ const transact = (actionname, data) => {
     });
 }
 
-export { transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceByName};
+export { getDeviceById, transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceList};

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {Route, NavLink, Switch, Redirect} from 'react-router-dom';
 import Login from '../../components/Login/Login';
 import './Blog.css';
+import FullPost from '../../containers/Blog/FullPost/FullPost';
 import Posts from './Posts/Posts';
 //import NewPost from './NewPost/NewPost';
 import asyncComponent from '../../hoc/asyncComponent';
@@ -23,8 +24,16 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
+                        <li><NavLink 
+                                to="/login/" 
+                                exact
+                                activeClassName="my-active"
+                                activeStyle={{
+                                    color:'#fa923f',
+                                    textDecoration: 'underline',
+                                }}>Login</NavLink></li>
                             <li><NavLink 
-                                to="/posts/" 
+                                to="/user/" 
                                 exact
                                 activeClassName="my-active"
                                 activeStyle={{
@@ -32,7 +41,7 @@ class Blog extends Component {
                                     textDecoration: 'underline',
                                 }}>User</NavLink></li>
                             <li><NavLink to={{
-                                    pathname: '/new-post',
+                                    pathname: '/new-device',
                                     hash: '#submit',
                                     search:'?quick-submit=true'
                                 }}>New Device</NavLink></li>
@@ -40,12 +49,12 @@ class Blog extends Component {
                     </nav>
                 </header>
 
-                
                 <Switch>
-                   {this.state.auth ? <Route path="/new-post" component={AsyncNewDevice}/> : null}
-                    <Route path="/posts" component={Posts}/>
-                    <Route component={Login}/>
-                    {/* <Redirect from="/" to="/posts" /> */}
+                   {this.state.auth ? <Route path="/new-device" component={AsyncNewDevice}/> : null}
+                    <Route path="/login" component={Login}/>
+                    <Route path="/user" component={Posts}/>
+                    <Route path={"/device" + '/:id'} exact component={FullPost}/>
+                    <Redirect from="/" to="/login" />
                 </Switch>
             </div>
         );

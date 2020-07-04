@@ -16,7 +16,7 @@ class Login extends Component{
         this.setState({loginStatus:false})
     }
     registerHandler = () => {
-        eos.regusr();
+        eos.regusr()
     }
     unregisterHandler = () => {
         eos.unregusr();
@@ -24,10 +24,10 @@ class Login extends Component{
     
 
     render() {
-        // let redirect = null;
-        // if(this.state.registerStatus){
-        //     redirect = <Redirect to="/posts"/>;
-        // };
+        let redirect = null;
+        if(this.state.registerStatus){
+            redirect = <Redirect to="/posts"/>;
+        };
 
         return(
             <div style={{textAlign:'center'}}>
