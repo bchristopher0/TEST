@@ -4,11 +4,14 @@ import './NewDevice.css';
 import { Redirect } from 'react-router';
 
 class NewPost extends Component {
-    state = {
-        username: '',
-        deviceid: '',
-        devicetype: 'Camera',
-        submitted:false,
+    constructor(){
+        super();
+        this.state = {
+            username: '',
+            deviceid: '',
+            devicetype: 'Camera',
+            submitted:false,
+        }
     }
 
     componentDidMount() {
@@ -20,6 +23,7 @@ class NewPost extends Component {
            // username:this.state.username,
             deviceid:this.state.deviceid,
             devicetype:this.state.devicetype,
+            
         }
         eos.regdev(data);
         this.setState({submitted:true});

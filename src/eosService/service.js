@@ -59,6 +59,14 @@ const unregdev = (data) => {
     transact('unregdev', data);
 }
 
+const regsub = (data) => {
+    transact('regsub', data);
+}
+
+const unregsub = (data) => {
+    transact('unregsub', data);
+} 
+
 const getusr = () => {
     return ScatterJS.identity.accounts[0].name;
 }
@@ -84,26 +92,45 @@ const getDeviceList= async() => {
       }
     }
 
-    const getDeviceById= async(id) => {
-        try {
-            const rpc = new JsonRpc(network.fullhost());     
-            const result = await rpc.get_table_rows({
-              json: true,
-              code: 'scatter',    // contract who owns the table
-              scope: 'scatter',   // scope of the table
-              table: 'devicelist',          // Table name                
-              lower_bound: id,
-            //   upper_bound: 'account',            
-              limit: 1,                   
-              reverse: false,
-              show_payer: false,
-            });
-            return result.rows[0];
-          } catch (err) {
-            console.error(err);
-          }
+const getDeviceById= async(id) => {
+    try {
+        const rpc = new JsonRpc(network.fullhost());     
+        const result = await rpc.get_table_rows({
+            json: true,
+            code: 'scatter',    // contract who owns the table
+            scope: 'scatter',   // scope of the table
+            table: 'devicelist',          // Table name                
+            lower_bound: id,
+        //   upper_bound: 'account',            
+            limit: 1,                   
+            reverse: false,
+            show_payer: false,
+        });
+        return result.rows[0];
+        } catch (err) {
+        console.error(err);
         }
-    
+    }
+const getServiceById= async(id) => {
+    try {
+        const rpc = new JsonRpc(network.fullhost());     
+        const result = await rpc.get_table_rows({
+            json: true,
+            code: 'scatter',    // contract who owns the table
+            scope: 'scatter',   // scope of the table
+            table: 'sublist',          // Table name                
+            lower_bound: id,
+        //   upper_bound: 'account',            
+            limit: 1,                   
+            reverse: false,
+            show_payer: false,
+        });
+        return result.rows[0];
+        } catch (err) {
+        console.error(err);
+        }
+    }
+
 
 
 
@@ -141,4 +168,4 @@ const transact = (actionname, data) => {
     });
 }
 
-export { getDeviceById, transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceList};
+export { getServiceById, getDeviceById, transact, setStatus, logout, login, regusr, unregusr, regdev, unregdev, getusr, getDeviceList, regsub, unregsub};

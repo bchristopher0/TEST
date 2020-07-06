@@ -13,6 +13,7 @@
 
 .Edit button {
     border: none;
+    margin: 10px auto;
     background-color: transparent;
     cursor: pointer;
     outline: none;
@@ -26,6 +27,10 @@
 
 .Edit button.Delete {
     color: red;
+}
+
+.Edit button.Add {
+    color: green;
 }
 
 .Edit button.Delete:hover,

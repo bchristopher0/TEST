@@ -11,7 +11,7 @@ class Posts extends Component {
   state ={
       error: '',
       devices: [],
-      username:'',
+      username:'not logged in',
     }
 
     componentWillMount() {
@@ -19,15 +19,10 @@ class Posts extends Component {
         if (status != null){
             this.setState({username:status})
         }
-        //this.displayDeviceHandler();
-        // eos.getDeviceList().then(res => {
-        //     console.log(res);
-        //     this.setState({devices:res})
-        // }).catch(err => {
-        //     this.setState({error:true})
-        // })
-
-        //console.log(this.state);
+    }
+    
+    componentDidUpdate() {
+        this.displayDeviceHandler();
     }
     componentDidMount(){
         this.displayDeviceHandler();
@@ -35,9 +30,7 @@ class Posts extends Component {
     }
 
     postSelectedHandler = (id) => {
-        //this.props.history.push({pathname:'/posts/' + id});
         this.props.history.push('/device/' + id);
-
     }
 
     displayDeviceHandler = async () => {
@@ -54,20 +47,11 @@ class Posts extends Component {
             this.setState({devices:result})
         }
         
-        // eos.getDeviceList().then(response => {
-        //     console.log(response);
-        //     if(response== null){
-        //         this.setState({error:true});
-        //     }else{
-        //         this.setState({devices:response});
-        //     }
-        // });
-        // console.log(this.state);
     }
 
     render() {
         //this.displayDeviceHandler();
-        console.log(this.state);
+        //console.log(this.state);
         let devices = <p stype={{textAlign:'center'}} >Something went wrong!</p>;
         if (!this.state.error){
             devices = this.state.devices.map(device=>{
@@ -91,7 +75,7 @@ class Posts extends Component {
             <div>
                 <h2 style={{textAlign:'center'}}>{this.state.username}</h2>
                 <section className="Posts">
-                    <button onClick={this.displayDeviceHandler}>Update Devices</button>
+                    {/* <button onClick={this.displayDeviceHandler}>Update Devices</button> */}
                     {devices}
                 </section>
             </div>

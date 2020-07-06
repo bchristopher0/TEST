@@ -30,7 +30,7 @@ class Blog extends Component {
                                 activeClassName="my-active"
                                 activeStyle={{
                                     color:'#fa923f',
-                                    textDecoration: 'underline',
+                                    //textDecoration: 'underline',
                                 }}>Login</NavLink></li>
                             <li><NavLink 
                                 to="/user/" 
@@ -38,7 +38,7 @@ class Blog extends Component {
                                 activeClassName="my-active"
                                 activeStyle={{
                                     color:'#fa923f',
-                                    textDecoration: 'underline',
+                                    //textDecoration: 'underline',
                                 }}>User</NavLink></li>
                             <li><NavLink to={{
                                     pathname: '/new-device',
@@ -50,10 +50,10 @@ class Blog extends Component {
                 </header>
 
                 <Switch>
-                   {this.state.auth ? <Route path="/new-device" component={AsyncNewDevice}/> : null}
                     <Route path="/login" component={Login}/>
                     <Route path="/user" component={Posts}/>
                     <Route path={"/device" + '/:id'} exact component={FullPost}/>
+                    {this.state.auth ? <Route path="/new-device" component={AsyncNewDevice}/> : null}
                     <Redirect from="/" to="/login" />
                 </Switch>
             </div>
