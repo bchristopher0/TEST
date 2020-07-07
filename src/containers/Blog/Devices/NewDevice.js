@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as eos from '../../../eosService/service';
+import * as eos from '../../../eosService/eos';
 import './NewDevice.css';
 import { Redirect } from 'react-router';
 
@@ -51,7 +51,7 @@ class NewPost extends Component {
                 {/* <label>Device Type</label>
                 <textarea rows="1" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})} /> */}
                 <label>Device Type</label>
-                <select value={this.state.devicetype} onChange={(event) => this.setState({devicetype: event.target.value})}>
+                <select style={{textAlign:"center"}} value={this.state.devicetype} onChange={(event) => this.setState({devicetype: event.target.value})}>
                     <option value="Camera">Camera</option>
                     <option value="Bulb">Bulb</option>
                     <option value="Plugin">Plugin</option>

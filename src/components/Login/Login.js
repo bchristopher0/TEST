@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as eos from '../../eosService/service';
+import * as eos from '../../eosService/eos';
 import './Login.css';
 import { Redirect } from 'react-router';
 class Login extends Component{

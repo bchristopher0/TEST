@@ -1,6 +1,6 @@
 import React, { Component , Fragment} from 'react';
 import { Route ,Redirect } from 'react-router';
-import * as eos from '../../../eosService/service';
+import * as eos from '../../../eosService/eos';
 import './FullPost.css';
 
 class FullPost extends Component {
